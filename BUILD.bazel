@@ -17,6 +17,7 @@ cc_binary(
     copts = [
         "-O2",
         "-Wall",
+        "-Wextra",
     ] + select({
         ":linux":   ["-DUSE_LIBUSB"],
         ":macos":   ["-DUSE_APPLE_IOKIT"],

@@ -550,6 +550,9 @@ static IOHIDManagerRef hid_manager=NULL;
 
 void attach_callback(void *context, IOReturn r, void *hid_mgr, IOHIDDeviceRef dev)
 {
+	(void) context;
+	(void) r;
+	(void) hid_mgr;
 	CFTypeRef type;
 	struct usb_list_struct *n, *p;
 	int32_t pid, vid;
@@ -578,6 +581,9 @@ void attach_callback(void *context, IOReturn r, void *hid_mgr, IOHIDDeviceRef de
 
 void detach_callback(void *context, IOReturn r, void *hid_mgr, IOHIDDeviceRef dev)
 {
+	(void) context;
+	(void) r;
+	(void) hid_mgr;
 	struct usb_list_struct *p, *tmp, *prev=NULL;
 
 	p = usb_list;
@@ -936,7 +942,7 @@ parse_hex_line(char *line)
 			if (((sum & 255) + (cksum & 255)) & 255) return 1;
 			extended_addr = i << 16;
 			if (code_size > 1048576 && block_size >= 1024 &&
-			   extended_addr >= 0x60000000 && extended_addr < 0x60000000 + code_size) {
+			   extended_addr >= 0x60000000 && extended_addr < 0x60000000 + (uint32_t)code_size) {
 				// Teensy 4.0 HEX files have 0x60000000 FlexSPI offset
 				extended_addr -= 0x60000000;
 			}
@@ -1088,7 +1094,7 @@ static const struct {
 };
 
 
-void list_mcus()
+void list_mcus(void)
 {
 	int i;
 	printf("Supported MCUs are:\n");
